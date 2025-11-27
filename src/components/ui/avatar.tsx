@@ -22,11 +22,24 @@ const sizePx = {
 }
 
 /**
+ * Generate initials from a name string.
+ * For names with multiple parts, uses first and last initials (e.g., 'John Doe' → 'JD').
+ * For single names, uses just the first character (e.g., 'John' → 'J').
+ */
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 1) {
+    return parts[0].charAt(0).toUpperCase()
+  }
+  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase()
+}
+
+/**
  * Reusable Avatar component for displaying user avatars.
  * Eliminates duplicated avatar/initial badge patterns across components.
  */
 export function Avatar({ name, src, size = 'md', className }: AvatarProps) {
-  const initials = name ? name.charAt(0).toUpperCase() : '?'
+  const initials = name ? getInitials(name) : '?'
 
   if (src) {
     return (

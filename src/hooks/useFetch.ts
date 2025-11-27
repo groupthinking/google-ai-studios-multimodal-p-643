@@ -21,7 +21,7 @@ export function useFetch<T>(
 ): UseFetchResult<T> {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(options.immediate ?? true)
+  const [isLoading, setIsLoading] = useState(options.immediate !== false)
 
   const fetchData = useCallback(async () => {
     try {
